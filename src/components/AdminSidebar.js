@@ -16,7 +16,7 @@ const AdminSidebar = () => {
       <nav className="sidebar-menu">
         <Link
           to="/admin"
-          className={`sidebar-item ${isActive("/admin-dashboard")}`}
+          className={`sidebar-item ${isActive("/admin")}`}
         >
           <i className="bi bi-speedometer2"></i>
           Dashboard
@@ -31,7 +31,13 @@ const AdminSidebar = () => {
         </Link>
       </nav>
 
-      <button className="logout-btn">
+      <button className="logout-btn" onClick={async () => {
+        try {
+          await require("../api/axios").default.post("/logout", {});
+        } finally {
+          window.location.href = "/";
+        }
+      }}>
         <i className="bi bi-box-arrow-right"></i> Logout
       </button>
     </div>

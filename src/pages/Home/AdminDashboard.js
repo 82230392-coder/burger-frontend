@@ -14,6 +14,8 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
+import AdminSidebar from "../../components/AdminSidebar";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -41,10 +43,7 @@ const AdminDashboard = () => {
   const [chartOrders, setChartOrders] = useState([]);
   const [chartIncome, setChartIncome] = useState([]);
 
-  const menu = [
-    { icon: "bi bi-speedometer2", label: "Dashboard" },
-    { icon: "bi bi-box-seam", label: "Products" },
-  ];
+  const [recentOrders, setRecentOrders] = useState([]);
 
   /* ================= FETCH STATS ================= */
   useEffect(() => {
@@ -80,10 +79,7 @@ const AdminDashboard = () => {
     axios
       .get("/admin/chart")
       .then((res) => {
-        console.log("✅ /admin/chart:", res.data);
-
         const rows = Array.isArray(res.data) ? res.data : [];
-
         const ordersMap = {};
         const incomeMap = {};
         labels.forEach((day) => {
@@ -102,27 +98,16 @@ const AdminDashboard = () => {
         setChartLabels(labels);
         setChartOrders(labels.map((d) => ordersMap[d]));
         setChartIncome(labels.map((d) => incomeMap[d]));
-      })
-      .catch((err) => {
-        console.error("❌ /admin/chart error:", err?.response?.status, err?.response?.data);
       });
+
+    // Fetch Recent Orders
+    axios.get("/admin/orders")
+      .then(res => setRecentOrders(res.data))
+      .catch(err => console.error("Orders Fetch Error:", err));
   }, []);
 
 
-  /* ================= SIDEBAR CLICK ================= */
-  const handleMenuClick = (label) => {
-    setActive(label);
-    if (label === "Products") navigate("/menu-management");
-  };
 
-  /* ================= LOGOUT ================= */
-  const handleLogout = async () => {
-    try {
-      await axios.post("/logout", {});
-    } finally {
-      navigate("/");
-    }
-  };
 
   const lineData = {
     labels: chartLabels,
@@ -169,42 +154,17 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-dashboard-container">
-      {/* SIDEBAR */}
-      <aside className="admin-sidebar">
-        <div className="sidebar-logo">
-          <i className="bi bi-fire"></i>
-          <span>Admin Panel</span>
-        </div>
+      <AdminSidebar />
 
-        <ul className="sidebar-menu">
-          {menu.map((item) => (
-            <li
-              key={item.label}
-              className={active === item.label ? "active" : ""}
-              onClick={() => handleMenuClick(item.label)}
-            >
-              <i className={item.icon}></i> <span>{item.label}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="logout-box" onClick={handleLogout}>
-          <i className="bi bi-box-arrow-right"></i> Logout
-        </div>
-      </aside>
-
-      {/* MAIN */}
       <main className="admin-main">
-        {/* NAVBAR */}
         <header className="admin-navbar">
-          <h2>{active}</h2>
+          <h2>Dashboard Overview</h2>
           <div className="navbar-actions">
             <i className="bi bi-bell"></i>
             <img src="https://i.pravatar.cc/40" className="avatar" alt="profile" />
           </div>
         </header>
 
-        {/* STATS */}
         <section className="stats-section">
           {stats.map((card, index) => (
             <div key={index} className="stat-card enhanced">
@@ -219,13 +179,51 @@ const AdminDashboard = () => {
           ))}
         </section>
 
-        {/* CHART */}
-        <section className="table-section">
-          <h3>Orders & Income Chart</h3>
-          <div style={{ height: 320 }}>
-            <Line data={lineData} options={lineOptions} />
-          </div>
-        </section>
+        <div className="dashboard-content-grid">
+          <section className="chart-wrapper">
+            <h3>Orders & Income (7 Days)</h3>
+            <div style={{ height: 300 }}>
+              <Line data={lineData} options={lineOptions} />
+            </div>
+          </section>
+
+          <section className="recent-orders-wrapper">
+            <h3>Recent Orders</h3>
+            <div className="admin-table-container">
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recentOrders.map((o) => (
+                    <tr key={o.id}>
+                      <td>#{o.id}</td>
+                      <td>{o.name}</td>
+                      <td>${Number(o.total).toFixed(2)}</td>
+                      <td>
+                        <span className={`status-badge ${o.status}`}>
+                          {o.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                  {recentOrders.length === 0 && (
+                    <tr>
+                      <td colSpan="4" style={{ textAlign: "center", padding: "2rem" }}>
+                        No orders yet.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
       </main>
     </div>
   );
