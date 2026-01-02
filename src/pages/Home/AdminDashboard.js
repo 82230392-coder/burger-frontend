@@ -56,8 +56,10 @@ const AdminDashboard = () => {
           { icon: "bi bi-currency-dollar", number: `$${res.data.revenue}`, label: "Revenue" },
         ]);
       })
-      .catch(() => {
-        navigate("/");
+      .catch((err) => {
+        console.error("❌ Admin Stats Fetch Error:", err);
+        console.log("❌ Response Data:", err.response?.data);
+        // navigate("/"); // Temporarily disabled so we can see errors in the console
       });
   }, [navigate]);
 
