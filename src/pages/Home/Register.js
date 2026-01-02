@@ -71,7 +71,9 @@ const Register = () => {
       localStorage.setItem("verifyEmail", formData.email);
       navigate("/verify");
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed. Try again.");
+      console.error("❌ Registration Error Detail:", err);
+      console.log("❌ Server Response:", err.response?.data);
+      setError(err.response?.data?.message || "Registration failed. Check browser console (F12).");
     } finally {
       setIsLoading(false);
     }
