@@ -1,0 +1,169 @@
+/* ================= MAIN LAYOUT ================= */
+.admin-main-layout {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f5f5, #ededed);
+  font-family: "Poppins", sans-serif;
+}
+
+.admin-content {
+  margin-left: 260px;
+  padding: 40px;
+  width: calc(100% - 260px);
+}
+
+/* ================= HEADER ================= */
+.admin-header {
+  margin-bottom: 30px;
+}
+
+.page-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+/* ================= SECTION TITLES ================= */
+.section-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ================= CARDS ================= */
+.menu-form-card,
+.menu-table-card {
+  background: white;
+  padding: 28px;
+  border-radius: 22px;
+  margin-bottom: 35px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* ================= FORM ================= */
+.menu-form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.menu-form input {
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 0.95rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu-form input:focus {
+  border-color: black;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
+}
+
+.menu-form input[type="file"] {
+  padding: 10px;
+  border: 1px dashed #aaa;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+/* ================= BUTTON ================= */
+.btn-black {
+  background: linear-gradient(135deg, #000, #2c2c2c);
+  color: white;
+  padding: 14px 26px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-black:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* ================= TABLE ================= */
+.menu-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 14px;
+}
+
+.menu-table thead th {
+  background: black;
+  color: white;
+  padding: 16px;
+  text-align: left;
+  border-radius: 14px;
+}
+
+.menu-table tbody tr {
+  background: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.menu-table tbody tr:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.15);
+}
+
+.menu-table td {
+  padding: 18px;
+  vertical-align: middle;
+}
+
+/* ================= IMAGE ================= */
+.menu-img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 2px solid #eee;
+}
+
+/* ================= ACTION BUTTONS ================= */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.edit-btn {
+  background: black;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.15s ease;
+}
+
+.edit-btn:hover {
+  transform: scale(1.05);
+}
+
+.delete-btn {
+  background: white;
+  border: 1px solid black;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.delete-btn:hover {
+  background: black;
+  color: white;
+}

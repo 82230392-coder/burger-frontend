@@ -1,0 +1,443 @@
+/* ========= AUTH SECTION ========= */
+.auth_section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff4757 100%);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.auth_section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 40%);
+  animation: pulse 8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.auth_section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="2" fill="white" opacity="0.1"/></svg>');
+  animation: movePattern 20s linear infinite;
+}
+
+@keyframes movePattern {
+  0% { transform: translateX(0) translateY(0); }
+  100% { transform: translateX(60px) translateY(60px); }
+}
+
+/* ========= AUTH CARD ========= */
+.auth_card {
+  background: white;
+  padding: 50px 40px;
+  border-radius: 30px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 2;
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========= AUTH ICON ========= */
+.auth_icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 30px;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ========= AUTH TITLE & SUBTITLE ========= */
+.auth_title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.auth_subtitle {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ========= FORM STYLING ========= */
+.auth_input {
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.auth_input:focus {
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 0.25rem rgba(255, 107, 53, 0.15);
+  background: white;
+  transform: translateY(-2px);
+}
+
+.auth_input::placeholder {
+  color: #adb5bd;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ========= PASSWORD INPUT WRAPPER ========= */
+.password_input_wrapper {
+  position: relative;
+}
+
+.password_toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 5px;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.password_toggle:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+/* ========= CHECKBOX STYLING ========= */
+.auth_checkbox .form-check-input {
+  border: 2px solid #dee2e6;
+  border-radius: 5px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.auth_checkbox .form-check-input:checked {
+  background-color: #ff6b35;
+  border-color: #ff6b35;
+}
+
+.auth_checkbox label {
+  color: #666;
+  font-size: 0.95rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ========= LINK STYLING ========= */
+.auth_link {
+  color: #ff6b35;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.auth_link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #ff6b35;
+  transition: width 0.3s ease;
+}
+
+.auth_link:hover::after {
+  width: 100%;
+}
+
+.auth_link:hover {
+  color: #f7931e;
+}
+
+/* ========= SUBMIT BUTTON ========= */
+.auth_submit_btn {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 16px 40px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 10px;
+  box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.auth_submit_btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.auth_submit_btn:hover::before {
+  left: 100%;
+}
+
+.auth_submit_btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255, 107, 53, 0.6);
+  background: linear-gradient(135deg, #f7931e 0%, #ff4757 100%);
+}
+
+.auth_submit_btn:active {
+  transform: translateY(-1px);
+}
+
+.auth_submit_btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Loading state */
+.auth_submit_btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ========= DIVIDER ========= */
+.auth_divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 35px 0 25px;
+  position: relative;
+}
+
+.auth_divider::before,
+.auth_divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.auth_divider span {
+  padding: 0 15px;
+  color: #999;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: white;
+}
+
+/* ========= SOCIAL LOGIN BUTTONS ========= */
+.social_login_buttons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.social_btn {
+  flex: 1;
+  padding: 14px 20px;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  background: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.social_icon {
+  font-size: 1.3rem;
+}
+
+.google_btn:hover {
+  border-color: #4285f4;
+  background: #4285f4;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(66, 133, 244, 0.3);
+}
+
+.facebook_btn:hover {
+  border-color: #1877f2;
+  background: #1877f2;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(24, 119, 242, 0.3);
+}
+
+/* ========= DEMO INFO ========= */
+.demo_info {
+  background: linear-gradient(135deg, #fff5f0 0%, #ffe8e0 100%);
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 20px;
+  border: 2px solid #ffe8e0;
+}
+
+.demo_info small {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.demo_info strong {
+  color: #ff6b35;
+}
+
+/* ========= AUTH ALERT ========= */
+.auth_alert {
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========= FOOTER TEXT ========= */
+.auth_footer {
+  color: #666;
+  font-size: 1rem;
+}
+
+/* ========= INVALID FEEDBACK ========= */
+.invalid-feedback {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+/* ========= RESPONSIVE ========= */
+@media (max-width: 768px) {
+  .auth_section {
+    padding: 40px 0;
+  }
+
+  .auth_card {
+    padding: 40px 25px;
+    border-radius: 20px;
+  }
+
+  .auth_title {
+    font-size: 1.6rem;
+  }
+
+  .auth_subtitle {
+    font-size: 0.9rem;
+  }
+
+  .auth_icon {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+
+  .social_login_buttons {
+    flex-direction: column;
+  }
+
+  .social_btn {
+    width: 100%;
+  }
+
+  .auth_submit_btn {
+    font-size: 1rem;
+    padding: 14px 30px;
+  }
+}
+
+/* ========= SMOOTH ANIMATIONS ========= */
+.form-control,
+.social_btn,
+.auth_link,
+.auth_submit_btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+  outline: 2px solid #ff6b35;
+  outline-offset: 2px;
+}

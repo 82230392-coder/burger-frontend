@@ -1,0 +1,77 @@
+/* Header CSS */
+header .navbar {
+  position: absolute;
+  width: 100%;
+  background-color: #ffffff;        /* White background */
+  z-index: 1000;
+  color: #000000;                   /* Black text */
+}
+
+header .navbar.sticky {
+  color: #000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #ffffff;        /* White background on scroll */
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 3px rgba(96, 96, 96, 0.1);
+}
+
+/* Logo */
+header .logo img {
+  width: auto;
+  max-height: 80px;
+}
+
+/* NAV LINKS — FIXED TO BLACK */
+header .nav-link {
+  display: inline-flex;
+  justify-content: center;
+  color: #000000 !important;        /* Always black */
+  padding: 0 1rem !important;
+  font-size: 1.125rem;
+  font-weight: 500;
+  font-family: var(--oswald-font);
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+}
+
+/* On scroll */
+header .sticky .nav-link {
+  color: #000000 !important;        /* Still black */
+}
+
+/* Hover */
+header .nav-link:hover {
+  color: var(--yellow) !important;  /* Yellow hover */
+}
+
+/* Cart counter */
+header .cart {
+  position: relative;
+  top: -0.4375rem;
+}
+header .roundpoint {
+  width: 16px;
+  height: 16px;
+  background: var(--light-red);
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 11.2px;
+  line-height: 16px;
+  text-align: center;
+  position: absolute;
+  top: 3.2px;
+  right: -8px;
+}
+
+/* Mobile */
+@media (max-width: 992px) {
+  header .navbar {
+    background-color: #ffffff;
+  }
+  header .nav-link {
+    color: #000000 !important;    /* Black text on mobile */
+    padding: 1rem !important;
+  }
+}
