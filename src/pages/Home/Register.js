@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Layout from "../../components/Layouts/Layout";
 import "../../styles/Auth.css";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../api/axios";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ const Register = () => {
     setIsLoading(true);
 
     try {
-      await axios.post("http://localhost:5000/register", {
+      await axios.post("/register", {
         fullName: formData.fullName,
         email: formData.email,
         password: formData.password,

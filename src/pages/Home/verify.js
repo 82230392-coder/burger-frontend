@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../../components/Layouts/Layout";
 import "../../styles/Auth.css";
-import axios from "axios";
+import axios from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const Verify = () => {
@@ -24,7 +24,7 @@ const Verify = () => {
     setError("");
 
     try {
-      await axios.post("http://localhost:5000/verify", {
+      await axios.post("/verify", {
         email,
         code,
       });

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../../styles/AdminDashboard.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../api/axios";
 
 import {
   Chart as ChartJS,
@@ -25,7 +24,7 @@ ChartJS.register(
   Legend
 );
 
-const API = "http://localhost:5000";
+
 
 const AdminDashboard = () => {
   const [active, setActive] = useState("Dashboard");
@@ -50,7 +49,7 @@ const AdminDashboard = () => {
   /* ================= FETCH STATS ================= */
   useEffect(() => {
     axios
-      .get(`${API}/admin/stats`, { withCredentials: true })
+      .get("/admin/stats")
       .then((res) => {
         setStats([
           { icon: "bi bi-people", number: res.data.users, label: "Users" },
@@ -67,47 +66,47 @@ const AdminDashboard = () => {
      Needs an endpoint that returns all orders with: total + created_at
      Example endpoint: GET /admin/orders/all
   */
-useEffect(() => {
-  const formatDay = (d) => d.toISOString().slice(0, 10);
+  useEffect(() => {
+    const formatDay = (d) => d.toISOString().slice(0, 10);
 
-  // last 7 days labels
-  const labels = [];
-  for (let i = 6; i >= 0; i--) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
-    labels.push(formatDay(d));
-  }
+    // last 7 days labels
+    const labels = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      labels.push(formatDay(d));
+    }
 
-  axios
-    .get(`${API}/admin/chart`, { withCredentials: true })
-    .then((res) => {
-      console.log("✅ /admin/chart:", res.data);
+    axios
+      .get("/admin/chart")
+      .then((res) => {
+        console.log("✅ /admin/chart:", res.data);
 
-      const rows = Array.isArray(res.data) ? res.data : [];
+        const rows = Array.isArray(res.data) ? res.data : [];
 
-      const ordersMap = {};
-      const incomeMap = {};
-      labels.forEach((day) => {
-        ordersMap[day] = 0;
-        incomeMap[day] = 0;
+        const ordersMap = {};
+        const incomeMap = {};
+        labels.forEach((day) => {
+          ordersMap[day] = 0;
+          incomeMap[day] = 0;
+        });
+
+        rows.forEach((r) => {
+          const day = String(r.day).slice(0, 10);
+          if (day in ordersMap) {
+            ordersMap[day] = Number(r.orders || 0);
+            incomeMap[day] = Number(r.income || 0);
+          }
+        });
+
+        setChartLabels(labels);
+        setChartOrders(labels.map((d) => ordersMap[d]));
+        setChartIncome(labels.map((d) => incomeMap[d]));
+      })
+      .catch((err) => {
+        console.error("❌ /admin/chart error:", err?.response?.status, err?.response?.data);
       });
-
-      rows.forEach((r) => {
-        const day = String(r.day).slice(0, 10);
-        if (day in ordersMap) {
-          ordersMap[day] = Number(r.orders || 0);
-          incomeMap[day] = Number(r.income || 0);
-        }
-      });
-
-      setChartLabels(labels);
-      setChartOrders(labels.map((d) => ordersMap[d]));
-      setChartIncome(labels.map((d) => incomeMap[d]));
-    })
-    .catch((err) => {
-      console.error("❌ /admin/chart error:", err?.response?.status, err?.response?.data);
-    });
-}, []);
+  }, []);
 
 
   /* ================= SIDEBAR CLICK ================= */
@@ -119,7 +118,7 @@ useEffect(() => {
   /* ================= LOGOUT ================= */
   const handleLogout = async () => {
     try {
-      await axios.post(`${API}/logout`, {}, { withCredentials: true });
+      await axios.post("/logout", {});
     } finally {
       navigate("/");
     }

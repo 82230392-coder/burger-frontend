@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 import "../../styles/MenuManagement.css";
 import AdminSidebar from "../../components/AdminSidebar";
 
@@ -22,7 +22,7 @@ const MenuManagement = () => {
   }, []);
 
   const fetchMenu = async () => {
-    const res = await axios.get("http://localhost:5000/menu");
+    const res = await axios.get("/menu");
     setMenuItems(res.data);
   };
 
@@ -38,9 +38,7 @@ const MenuManagement = () => {
     const data = new FormData();
     Object.keys(formData).forEach((key) => data.append(key, formData[key]));
 
-    await axios.post("http://localhost:5000/menu", data, {
-      withCredentials: true,
-    });
+    await axios.post("/menu", data);
 
     fetchMenu();
     setFormData({ name: "", price: "", category: "", image: null });
@@ -72,9 +70,7 @@ const MenuManagement = () => {
       data.append("image", formData.image);
     }
 
-    await axios.put(`http://localhost:5000/menu/${editID}`, data, {
-      withCredentials: true,
-    });
+    await axios.put(`/menu/${editID}`, data);
 
     fetchMenu();
     setIsEditing(false);
@@ -84,9 +80,7 @@ const MenuManagement = () => {
 
   /* ================= DELETE ================= */
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:5000/menu/${id}`, {
-      withCredentials: true,
-    });
+    await axios.delete(`/menu/${id}`);
     fetchMenu();
   };
 

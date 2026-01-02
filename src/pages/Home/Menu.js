@@ -1,8 +1,8 @@
-  import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Badge } from "react-bootstrap";
 import Layout from "../../components/Layouts/Layout";
 import "../../styles/MenuStyle.css";
-import axios from "axios";
+import axios from "../../api/axios";
 
 /* ================= ULTRA MODERN CARD ================= */
 const UltraModernCard = ({ item, index }) => {
@@ -11,11 +11,7 @@ const UltraModernCard = ({ item, index }) => {
 
   const handleAddToCart = async () => {
     try {
-      await axios.post(
-        "http://localhost:5000/cart/add",
-        { menuId: item.id },
-        { withCredentials: true }
-      );
+      await axios.post("/cart/add", { menuId: item.id });
 
       setAddedToCart(true);
       setTimeout(() => setAddedToCart(false), 2000);
@@ -62,7 +58,7 @@ const Menu = () => {
   /* FETCH MENU */
   useEffect(() => {
     axios
-      .get("http://localhost:5000/menu")
+      .get("/menu")
       .then((res) => setMenu(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -115,9 +111,8 @@ const Menu = () => {
                 {categories.map((cat) => (
                   <button
                     key={cat.id}
-                    className={`category_btn ${
-                      activeFilter === cat.id ? "active" : ""
-                    }`}
+                    className={`category_btn ${activeFilter === cat.id ? "active" : ""
+                      }`}
                     onClick={() => setActiveFilter(cat.id)}
                   >
                     {cat.icon} {cat.label}

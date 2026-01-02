@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../../components/Layouts/Layout";
 import "../../styles/AuthStyle.css";
-import axios from "axios";
+import axios from "../../api/axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -65,14 +65,10 @@ const Login = () => {
     setIsSubmitting(true);
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/login",
-        {
-          email: formData.email,
-          password: formData.password,
-        },
-        { withCredentials: true }
-      );
+      const res = await axios.post("/login", {
+        email: formData.email,
+        password: formData.password,
+      });
 
       const user = res.data.user;
 

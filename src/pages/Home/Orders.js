@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 import Layout from "../../components/Layouts/Layout";
 import "../../styles/Orders.css";
 
@@ -9,7 +9,7 @@ const Orders = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/orders", { withCredentials: true })
+      .get("/orders")
       .then(res => {
         setOrders(res.data);
         setLoading(false);

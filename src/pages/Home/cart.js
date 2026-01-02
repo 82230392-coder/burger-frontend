@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button, Form, Spinner } from "react-bootstrap";
 import Layout from "../../components/Layouts/Layout";
 import "../../styles/CartStyle.css";
-import axios from "axios";
+import axios from "../../api/axios";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -18,9 +18,7 @@ const CartPage = () => {
 
   const fetchCart = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/cart", {
-        withCredentials: true,
-      });
+      const res = await axios.get("/cart");
       setCartItems(res.data);
     } catch (err) {
       console.log("Cart error:", err);
@@ -35,11 +33,7 @@ const CartPage = () => {
     if (change === -1 && item.quantity <= 1) return;
 
     try {
-      await axios.post(
-        "http://localhost:5000/cart/update",
-        { cartId: id, change },
-        { withCredentials: true }
-      );
+      await axios.post("/cart/update", { cartId: id, change });
       fetchCart();
     } catch (err) {
       console.log(err);
@@ -49,11 +43,7 @@ const CartPage = () => {
   /* ================= REMOVE ITEM ================= */
   const removeItem = async (id) => {
     try {
-      await axios.post(
-        "http://localhost:5000/cart/remove",
-        { cartId: id },
-        { withCredentials: true }
-      );
+      await axios.post("/cart/remove", { cartId: id });
       fetchCart();
     } catch (err) {
       console.log(err);
@@ -81,11 +71,7 @@ const CartPage = () => {
     setErrors({});
 
     try {
-      await axios.post(
-        "http://localhost:5000/checkout",
-        {},
-        { withCredentials: true }
-      );
+      await axios.post("/checkout", {});
 
       setOrderSuccess(true);
       setCartItems([]);
@@ -129,7 +115,7 @@ const CartPage = () => {
                     <div key={item.id} className="cart_item mb-3">
                       <div className="cart_item_info">
                         <img
-                          src={`http://localhost:5000/uploads/${item.image}`}
+                          src={`${process.env.REACT_APP_API_URL || "http://localhost:5000"}/uploads/${item.image}`}
                           alt={item.name}
                           className="cart_image"
                           onError={(e) => {
