@@ -87,7 +87,9 @@ const Login = () => {
       }, 1000);
 
     } catch (err) {
-      setLoginError(err.response?.data?.message || "Login failed");
+      console.error("❌ Login Error Detail:", err);
+      console.log("❌ Server Response:", err.response?.data);
+      setLoginError(err.response?.data?.message || "Login failed - check console (F12)");
     } finally {
       setIsSubmitting(false);
     }
